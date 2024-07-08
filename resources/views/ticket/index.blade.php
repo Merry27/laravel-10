@@ -9,8 +9,8 @@
             </p>
             @foreach ($tickets as $ticket)
                 <div class="flex justify-between py-4">
-                    {{-- <a href="{{ route('ticket.show', $ticket->id) }}">{{ $ticket->title }}</a> --}}
-                    <p>{{ $ticket->title }}</p>
+                    <a href="{{ route('ticket.show', $ticket->id) }}">{{ $ticket->title }}</a>
+                    {{-- <p>{{ $ticket->title }}</p> --}}
                     <p>{{ $ticket->created_at->diffForHumans() }}</p>
                 </div>
             @endforeach

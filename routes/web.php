@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Profile\AvatarController;
 use App\Http\Controllers\TicketController;
+use App\Models\Ticket;
 use Illuminate\Support\Facades\Auth;
 use OpenAI\Laravel\Facades\OpenAI;
 use Laravel\Socialite\Facades\Socialite;
@@ -87,7 +88,13 @@ Route::get('/auth/callback', function () {
 Route::middleware('auth')->prefix('ticket')->name('ticket.')->group(function(){
     Route::resource('/',TicketController::class);
     
-    // Route::get('/ticket/create',[TicketController::class,'create']);
+    
     // Route::post('/ticket/create',[TicketController::class,'store']);
 });
+ 
+Route::get('/show/{ticket}',[TicketController::class,'show'])->name('ticket.show');;
+Route::delete('/ticket/{ticket}', [TicketController::class, 'destroy'])->name('ticket.destroy');
+Route::get('/ticket/{ticket}/edit', [TicketController::class, 'edit'])->name('ticket.edit');
+Route::patch('/ticket/{ticket}', [TicketController::class, 'update'])->name('ticket.update');
+
 

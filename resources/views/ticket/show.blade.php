@@ -6,9 +6,19 @@
                 <p>{{ $ticket->description }}</p>
                 <p>{{ $ticket->created_at->diffForHumans() }}</p>
                 @if($ticket->attachment)
-                    <a href="{{ $ticket->attachment }}">Attachment</a>
+                    <a href="{{"/storage". '/' .$ticket->attachment }}" target="blank">Attachment</a>
                 @endif
             </div> 
+            <div class="flex">
+                <a href="{{ route('ticket.edit' , $ticket) }}">
+                    <x-primary-button> Edit </x-primary-button>
+                </a>
+                <form class="ml-2" action="{{ route('ticket.destroy' , $ticket) }}" method="POST">
+                    @method('delete')
+                    @csrf
+                    <x-primary-button> Delete </x-primary-button>
+                </form>
+            </div>
         </div>
     </div> 
 </x-app-layout>

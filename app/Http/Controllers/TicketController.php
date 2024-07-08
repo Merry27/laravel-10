@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ticket;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreTicketRequest;
 use App\Http\Requests\UpdateTicketRequest;
-use Illuminate\Support\Str;
+use Illuminate\Auth\Events\Validated;
 
 class TicketController extends Controller
 {
@@ -57,19 +59,18 @@ class TicketController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show()
-    { 
-        // dd('sadas');
-        return view('ticket.show');
-        // dd('Hello');
+     
+    public function show(Ticket $ticket)
+    {   
+        return view('ticket.show',compact('ticket')); 
     }
-
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Ticket $ticket)
-    {
-        //
+    {   
+        // dd($ticket);
+        return view('ticket.edit',compact('ticket')); 
     }
 
     /**
@@ -77,7 +78,8 @@ class TicketController extends Controller
      */
     public function update(UpdateTicketRequest $request, Ticket $ticket)
     {
-        //
+        $ticket->update($request->Validated());
+         return redirect(route('ticket.index'));
     }
 
     /**
